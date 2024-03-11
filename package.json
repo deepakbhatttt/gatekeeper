@@ -1,10 +1,12 @@
 {
+  "homepage": "https://deepakbhatttt.github.io/gatekeeper",
   "name": "gatekeeper",
   "version": "1.0.0",
   "description": "NFC based application",
-  "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
+    "predeploy": "rm -rf dist && parcel build index.html --no-source-maps --public-url ./",
+    "deploy": "gh-pages -d dist",
     "build": "parcel build index.html",
     "test": "jest"
   },
