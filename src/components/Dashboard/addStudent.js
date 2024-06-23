@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 // import { Modal, Button, Form } from 'react-bootstrap';
 /*
 const AddStudentModal = ({ show, handleClose, handleSave }) => {
@@ -171,7 +171,7 @@ const AddStudentComponent = () => {
 export default AddStudentComponent;
 */
 
-// import React, { useState } from 'react';
+import React, { useState } from 'react';
 
 function AddStudentComponent() {
   const [students, setStudents] = useState([]);

@@ -1,84 +1,113 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
-import {createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
-import {useDispatch, Provider} from "react-redux";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {Provider} from "react-redux";
 import store from "./store/store.js";
 
-import LoginForm from "./components/login";
-import authService from "./appwrite/auth.js";
-import {login, logout} from "./store/authSlice.js"
+
+import AuthLayout from './components/authLayout.js'
+import { Login } from './components/login.js'
+import Signup  from './components/signUp.js'
 
 import ErrorPage from "./components/essentials/error";
-import Header from "./components/essentials/header";
-import Footer from "./components/essentials/footer";
-import Body from "./components/body";
-import NFCReaderWithAttendance from "./components/dummy04";
-import Dashboard from "./components/dashboard";
 import App from "./index.js";
+import Home from "./Pages/home.js";
+import Body from "./Pages/body.js";
+import Scan from "./Pages/scan.js";
+import Dashboard from "./components/dashboard";
+import ManageStudentsData from "./Pages/manageStudents.js";
 
-
-const AppLayout = () => {
-/*
-    const [loading, setLoading] = useState(true);
-    const dispatch = useDispatch()
-
-    useEffect(()=>{
-        authService.getCurrentUser()
-        .then((userData)=>{
-            if(userData){
-                dispatch(login(userData))
-            }else{
-                dispatch(logout())
-            }
-        })
-        .finally(()=> setLoading(false));
-    },[])
-    */
-    return (
-        <>
-            <Header/>
-            <main>
-                <Outlet/>
-            </main>
-            <Footer/>   
-        </>
-    );
-};
+import DailyEntry  from "./Pages/dailyEntryTable.js"
+import DailyInOutData from "./components/daliyInOutData.js"
 
 const appRouter = createBrowserRouter([
     {
         path : "/",
-        element : <AppLayout/>, 
+        element : <App/>, 
         errorElement : <ErrorPage/>, 
         children: [
             {
                 path : "/",
-                element : <Body/>
+                element : (
+                    <AuthLayout authentication={false}>
+                        <Body/> {/* Home Page When User is not Logged In */}
+                    </AuthLayout>
+                ),
+            },
+            {
+                path : "/home",
+                element : (
+                    <AuthLayout authentication>
+                        {" "}
+                        <Home />    {/* Home Page When User is Logged In */}
+                    </AuthLayout>
+                ),
+            },
+            {
+                path: "/login",
+                element: (
+                    <AuthLayout authentication={false}>
+                        <Login />
+                    </AuthLayout>
+                ),
+            },
+            {
+                path: "/signup",
+                element: (
+                    <AuthLayout authentication={false}>
+                        <Signup />
+                    </AuthLayout>
+                ),
             },
             {
                 path : "/dashboard",
-                element : <Dashboard/>
+                element : (
+                    // <AuthLayout authentication={false}>
+                     <AuthLayout authentication>  
+                        {" "}
+                        <Dashboard/>
+                    </AuthLayout>
+                ),
+            },
+            {
+                path : "/manage",
+                element : (
+                    // <AuthLayout authentication={false}>
+                    <AuthLayout authentication> 
+                        {" "}
+                        <ManageStudentsData/>
+                    </AuthLayout>
+                ),
             },
             {
                 path : "/scan",
-                element : <NFCReaderWithAttendance/>
+                element : (
+                    // <AuthLayout authentication={false}>
+                     <AuthLayout authentication> 
+                        {" "}
+                        <Scan/>
+                    </AuthLayout>
+                ),
+            },
+            {
+                path : "/in-out-data",
+                element : (
+                    // <AuthLayout authentication={false}>
+                     <AuthLayout authentication> 
+                        {" "}
+                        <DailyInOutData/>
+                    </AuthLayout>
+                ),
             }
         ] 
     }
 ])
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={appRouter} />);
-
-// root.render(<AppLayout/>);
-
-/*
-const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <React.StrictMode>
-    <Provider store={store}>
-        <App/>
-    </Provider>    
+        <Provider store={store}>
+            <RouterProvider router={appRouter} />
+        </Provider>    
     </React.StrictMode>
 )
-*/

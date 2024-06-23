@@ -1,10 +1,10 @@
 {
-  "homepage": "https://deepakbhatttt.github.io/gatekeeper",
   "name": "gatekeeper",
   "version": "1.0.0",
   "description": "NFC based application",
   "scripts": {
-    "start": "parcel index.html",
+      "start": "parcel serve ./index.html --https --cert ./cert.pem --key ./key.pem",
+    
     "predeploy": "rm -rf dist && parcel build index.html --no-source-maps --public-url ./",
     "deploy": "gh-pages -d dist",
     "build": "parcel build index.html",
@@ -20,12 +20,12 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.1",
     "@tinymce/tinymce-react": "^4.3.2",
-    "appwrite": "^14.0.0",
+    "appwrite": "^13.0.1",
     "html-react-parser": "^5.1.8",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.1",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.51.0",
+    "react-hook-form": "^7.51.1",
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.22.3"
   }
