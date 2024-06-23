@@ -1,11 +1,9 @@
-import HomeCard from "./homeCards";
-// import TableView from "./tableView";
+import HomeCard from "./homeCards.js";
 
 const Body = ()=>{
   return(
     <>
       <HomeCard/>
-      {/* <TableView/> */}
     </>
   );
 };
